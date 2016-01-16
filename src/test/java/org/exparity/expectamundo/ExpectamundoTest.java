@@ -14,6 +14,7 @@ import static org.exparity.stub.random.RandomBuilder.aRandomInteger;
 import static org.exparity.stub.random.RandomBuilder.aRandomString;
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import org.exparity.expectamundo.core.PrototypeMatcherContext;
 import org.exparity.expectamundo.core.TypeReference;
+import org.exparity.expectamundo.testutils.types.BigDecimalReturnType;
 import org.exparity.expectamundo.testutils.types.GraphListReturnType;
 import org.exparity.expectamundo.testutils.types.GraphType;
 import org.exparity.expectamundo.testutils.types.HashCodeType;
@@ -51,6 +53,14 @@ public class ExpectamundoTest {
 		expect(expected.getValue()).isEqualTo(expectedValue);
 		expectThat(new SimpleType(expectedValue)).matches(expected);
 	}
+	
+	@Test
+	public void canMatchBigDecimalProperty() {
+		final BigDecimal expectedValue = new BigDecimal("10");
+		BigDecimalReturnType expected = prototype(BigDecimalReturnType.class);
+		expect(expected.getValue()).isEqualTo(expectedValue);
+		expectThat(new BigDecimalReturnType(expectedValue)).matches(expected);
+	}	
 
 	@Test(expected = AssertionError.class)
 	public void canFailSimpleProperty() {
